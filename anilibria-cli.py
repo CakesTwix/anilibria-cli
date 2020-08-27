@@ -71,7 +71,7 @@ cli.add_command(randomtitle)
 
 
 @click.command()
-def schedule(desc):
+def schedule():
     days = {0: "Понедельник",
             1: "Вторник",
             2: "Среда",
