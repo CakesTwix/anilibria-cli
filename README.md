@@ -33,6 +33,7 @@
 - findtitle
 - randomtitle
 - updates
+- schedule
 
 # Дополнительно
 
