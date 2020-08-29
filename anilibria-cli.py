@@ -22,7 +22,6 @@ def show_titles_list(url, desc):
         if desc:
             click.echo(item['description'])
             click.echo(separator_line)
-    return response
 
 
 @click.group()
