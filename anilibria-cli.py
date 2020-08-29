@@ -14,9 +14,7 @@ def show_titles_list(url, desc):
         # Rows is unneeded value
         _, columns = os.popen('stty size', 'r').read().split()
         # Generate separator line
-        separator_line = ''
-        for i in range(int(columns)):
-            separator_line += '━'
+        separator_line = '━' * int(columns)
     response = requests.get(url)
     data = response.json()
     for item in data:
