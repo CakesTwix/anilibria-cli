@@ -3,6 +3,11 @@ import requests
 import os
 
 
+def get_data(url):
+    # get responce and process it as json
+    return requests.get(url).json()
+
+
 def get_ru_en_name(item):
     return item['names']['ru'] + ' | ' + item['names']['en']
 
@@ -15,9 +20,7 @@ def show_titles_list(url, desc):
         _, columns = os.popen('stty size', 'r').read().split()
         # Generate separator line
         separator_line = '━' * int(columns)
-    response = requests.get(url)
-    data = response.json()
-    for item in data:
+    for item in get_data(url):
         click.echo('* ' + get_ru_en_name(item))
         if desc:
             click.echo(item['description'])
@@ -57,8 +60,7 @@ cli.add_command(updates)
 @click.command()
 @click.option('--desc', is_flag=True, help='Вывести описание тайтла')
 def randomtitle(desc):
-    response = requests.get('https://api.anilibria.tv/v2/getRandomTitle')
-    name = response.json()
+    name = get_data('https://api.anilibria.tv/v2/getRandomTitle')
     click.echo(get_ru_en_name(name))
     if desc:
         click.echo(name['description'])
@@ -77,8 +79,7 @@ def schedule():
             5: "Суббота",
             6: "Воскресенье"}
 
-    response = requests.get('https://api.anilibria.tv/v2/getSchedule')
-    name = response.json()
+    name = get_data('https://api.anilibria.tv/v2/getSchedule')
     for daysItem in name:
         click.echo(days.get(daysItem["day"]))
         for listTitle in daysItem["list"]:
